@@ -1,0 +1,85 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Instructions to Execute and Reproduce Python Notebooks of ML project - Spotify Music genres.\
+\
+\
+-You can just run each cell in the notebook one by one since we left comments in the notebook for better understanding of the code. Otherwise, follow the instructions below. \
+\
+\
+\
+Requirements:\
+- Python 3.8 or later\
+- Libraries: pandas, numpy, matplotlib, seaborn, sklearn\
+\
+Instructions:\
+\
+1. Setup Environment:\
+   - Install Python and the required libraries:\
+     ```\
+     pip install pandas numpy matplotlib seaborn scikit-learn\
+     ```\
+\
+2. Data Preparation:\
+   - Obtain the dataset `genres_v2.csv` and place it in the working directory.\
+\
+3. Execution Steps:\
+   - Load and Explore Data:\
+     - Load the dataset using pandas:\
+       ```python\
+       import pandas as pd\
+       data = pd.read_csv("genres_v2.csv")\
+       data.info()\
+       ```\
+     - View basic statistical details:\
+       ```python\
+       data.describe()\
+       ```\
+\
+   - Data Cleaning:\
+     - Identify and handle missing data:\
+       ```python\
+       data.isnull().sum()\
+       data['song_name'] = data['song_name'].apply(lambda x: x if isinstance(x, str) else pd.NA)\
+       data_cleaned = data.dropna(subset=['song_name'])\
+       ```\
+     - Drop unnecessary columns:\
+       ```python\
+       data_cleaned = data_cleaned.drop(["Unnamed: 0", "title", "type", "id", "uri", "track_href", "analysis_url"], axis=1)\
+       ```\
+\
+   - Data Visualization:\
+     - Generate histograms and boxplots to compare features:\
+       ```python\
+       import matplotlib.pyplot as plt\
+       import seaborn as sns\
+       # Histograms and boxplots code here\
+       ```\
+\
+   - Feature Engineering:\
+     - Encode categorical variables:\
+       ```python\
+       data_encoded = pd.get_dummies(data_cleaned, columns=["genre"])\
+       ```\
+\
+   - Correlation Analysis:\
+     - Generate a correlation matrix:\
+       ```python\
+       correlation_matrix = data_encoded.corr()\
+       plt.figure(figsize=(12, 10))\
+       sns.heatmap(correlation_matrix, annot=False, cmap="coolwarm")\
+       plt.title("Correlation Matrix")\
+       plt.show()\
+       ```\
+\
+4. Optional Steps:\
+   - Save the cleaned data to a new CSV file:\
+     ```python\
+     new_csv_path = "new_file.csv"\
+     data_cleaned.to_csv(new_csv_path, index=False)\
+     ```\
+}
